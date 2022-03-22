@@ -1,20 +1,13 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"github.com/tegarsubkhan236/go-fiber-project/bootstrap"
+	"github.com/tegarsubkhan236/go-fiber-project/pkg/env"
+	"log"
+)
 
 func main() {
-	app := fiber.New()
-
-	app.Get("/", hallo)
-	app.Get("/:name", halloRandomName)
-
-	app.Listen(":3000")
-}
-
-func hallo(c *fiber.Ctx) error {
-	return c.SendString("Hallo World")
-}
-
-func halloRandomName(c *fiber.Ctx) error {
-	return c.SendString("Hallo " + c.Params("name"))
+	app := bootstrap.NewApplicationApp()
+	log.Fatal(app.Listen(fmt.Sprintf("%s:%s", env.GetEnv("APP_HOST", "localhost"), env.GetEnv("APP_PORT", "4000"))))
 }
