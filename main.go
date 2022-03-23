@@ -1,14 +1,19 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/tegarsubkhan236/go-fiber-project/database"
+	"log"
+)
 
 func main() {
 	app := fiber.New()
+	database.ConnectDB()
 
 	app.Get("/", hallo)
 	app.Get("/:name", halloRandomName)
 
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }
 
 func hallo(c *fiber.Ctx) error {
